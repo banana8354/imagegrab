@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图片预览与下载 - 图提取 ImageGrab</title>
+  <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+  <!-- 顶部工具栏 -->
+  <header class="toolbar">
+    <div class="toolbar__left">
+      <div class="brand">
+        <span class="brand__logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <path d="M21 15l-5-5L5 21"></path>
+          </svg>
+        </span>
+        <div class="brand__text">
+          <strong>图提取 ImageGrab</strong>
+          <span id="metaInfo" class="brand__sub">正在载入…</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbar__actions">
+      <label class="check-inline">
+        <input type="checkbox" id="checkAll">
+        <span>全选</span>
+      </label>
+      <button class="btn btn--ghost" id="btnInvert" type="button">反选</button>
+      <button class="btn btn--ghost" id="btnReload" type="button">重新提取</button>
+      <span class="counter" id="counter">已选 0 / 0</span>
+      <button class="btn btn--primary" id="btnDownload" type="button">下载选中 (PNG)</button>
+    </div>
+  </header>
+
+  <!-- 下载进度条 -->
+  <div class="progress" id="progress" hidden>
+    <div class="progress__bar"><span id="progressFill"></span></div>
+    <span class="progress__text" id="progressText">准备下载…</span>
+  </div>
+
+  <!-- 图片网格 -->
+  <main class="grid" id="grid" aria-live="polite"></main>
+
+  <!-- 空状态 -->
+  <section class="empty" id="empty" hidden>
+    <h2>还没有提取到图片</h2>
+    <p>打开淘宝 / 天猫 / 京东 / 拼多多商家版的商品详情页，点击右下角的「获取图片」按钮即可。</p>
+    <ol>
+      <li>在商品详情页把页面滚动到底部，确保图片都加载出来</li>
+      <li>点击页面右下角的「获取图片」悬浮按钮</li>
+      <li>回到本页勾选需要的图片，一键下载为 PNG</li>
+    </ol>
+  </section>
+
+  <!-- 结果反馈浮层 -->
+  <div class="result" id="result" hidden></div>
+
+  <script src="gallery.js"></script>
+</body>
+</html>

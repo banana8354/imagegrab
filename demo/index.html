@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【演示】秋冬加厚保暖连帽羽绒服 男女同款 - 商品详情页</title>
+<style>
+  :root { --tb: #ff5000; --line: #ececec; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f4f4f4; color: #333; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+  .tb-top { display: flex; align-items: center; justify-content: space-between; height: 36px; padding: 0 16px; background: #fff; border-bottom: 1px solid var(--line); font-size: 12px; color: #666; }
+  .tb-top b { color: var(--tb); }
+  .tb-head { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #fff; }
+  .tb-head .logo { height: 32px; }
+  .search { flex: 1; display: flex; max-width: 620px; border: 2px solid var(--tb); border-radius: 20px; overflow: hidden; }
+  .search input { flex: 1; height: 36px; padding: 0 16px; border: none; outline: none; font-size: 14px; }
+  .search button { width: 84px; border: none; background: var(--tb); color: #fff; font-size: 15px; cursor: pointer; }
+  .detail { display: grid; grid-template-columns: 440px 1fr; gap: 24px; max-width: 1160px; margin: 16px auto; padding: 20px; background: #fff; }
+  .gallery__main { position: relative; width: 100%; aspect-ratio: 1/1; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: #fafafa; }
+  .gallery__main img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery__thumbs { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .gallery__thumbs img { width: 68px; height: 68px; object-fit: cover; border: 2px solid transparent; border-radius: 4px; cursor: pointer; }
+  .gallery__thumbs img:hover { border-color: var(--tb); }
+  h1 { margin: 0 0 12px; font-size: 20px; line-height: 1.5; font-weight: 600; }
+  .price-box { padding: 14px 16px; border-radius: 8px; background: linear-gradient(90deg, #fff3ec, #fff); }
+  .price { font-size: 30px; color: var(--tb); font-weight: 700; }
+  .price small { font-size: 15px; }
+  .ori { margin-left: 10px; color: #999; text-decoration: line-through; font-size: 13px; }
+  .rows { margin-top: 14px; font-size: 13.5px; color: #666; line-height: 2.1; }
+  .rows b { display: inline-block; width: 62px; color: #999; font-weight: 400; }
+  .buy { display: flex; gap: 12px; margin-top: 20px; }
+  .buy button { flex: 1; height: 48px; border: none; border-radius: 6px; font-size: 17px; font-weight: 600; color: #fff; cursor: pointer; }
+  .buy .cart { background: linear-gradient(90deg, #ff9000, #ff5000); }
+  .buy .now { background: linear-gradient(90deg, #ff5000, #e93b3b); }
+  .section-title { max-width: 1160px; margin: 24px auto 0; padding: 12px 0; text-align: center; font-size: 16px; font-weight: 600; letter-spacing: 4px; color: #666; }
+  .detail-imgs { max-width: 800px; margin: 0 auto 40px; }
+  .detail-imgs img { display: block; width: 100%; margin-bottom: 6px; border-radius: 4px; }
+  .bg-banner { max-width: 800px; height: 180px; margin: 0 auto 20px; border-radius: 6px; background-image: url("assets/product_08.png"); background-size: cover; background-position: center; }
+  .tb-foot { padding: 20px; text-align: center; color: #999; font-size: 12px; background: #fff; }
+</style>
+</head>
+<body>
+  <!-- 顶部条：模拟电商平台顶栏 -->
+  <div class="tb-top">
+    <span>亲，请登录　免费注册　< b>手机逛淘宝</b></span>
+    <span>我的淘宝 · 购物车 · 收藏夹 · 卖家中心 · 联系客服</span>
+  </div>
+
+  <!-- 头部：logo + 搜索 -->
+  <header class="tb-head">
+    <img class="logo" src="assets/brand_logo.png" alt="logo">
+    <form class="search" onsubmit="return false">
+      <input placeholder="秋冬加厚保暖连帽羽绒服" aria-label="搜索">
+      <button type="button">搜索</button>
+    </form>
+  </header>
+
+  <!-- 商品详情主体 -->
+  <main class="detail">
+    <div class="gallery">
+      <div class="gallery__main">
+        <img id="mainImg" src="assets/product_01.png" alt="商品主图">
+      </div>
+      <!-- 缩略图：data-src 懒加载 + srcset 两种写法，用于验证提取逻辑 -->
+      <div class="gallery__thumbs">
+        <img data-src="assets/product_01.png" src="assets/logo_tiny.png" alt="图1">
+        <img data-src="assets/product_02.png" src="assets/logo_tiny.png" alt="图2">
+        <img data-src="assets/product_03.png" src="assets/logo_tiny.png" alt="图3">
+        <img data-lazy-src="assets/product_04.png" src="assets/logo_tiny.png" alt="图4">
+        <img data-original="assets/product_05.png" src="assets/logo_tiny.png" alt="图5">
+      </div>
+    </div>
+
+    <div class="info">
+      <h1>秋冬加厚保暖连帽羽绒服 男女同款 90%白鸭绒 户外防风防水外套</h1>
+      <div class="price-box">
+        <span class="price"><small>¥</small>399.00</span>
+        <span class="ori">¥899.00</span>
+      </div>
+      <div class="rows">
+        <div><b>月销量</b>2.3万+ 件</div>
+        <div><b>发货地</b>浙江 杭州　<b style="width:auto">运费</b> 包邮</div>
+        <div><b>颜色</b>黑色 / 米白 / 军绿 / 藏青</div>
+        <div><b>尺码</b>S / M / L / XL / 2XL</div>
+        <div><b>累计评价</b>86213 条好评</div>
+      </div>
+      <div class="buy">
+        <button class="cart" type="button">加入购物车</button>
+        <button class="now" type="button">立即购买</button>
+      </div>
+    </div>
+  </main>
+
+  <div class="section-title">— 商品详情 —</div>
+
+  <!-- 背景图背景区（验证 background-image 提取） -->
+  <div class="bg-banner" data-src="assets/product_08.png"></div>
+
+  <!-- 详情长图：data-ks-lazyload / data-lazyload（不同平台的懒加载属性） -->
+  <div class="detail-imgs">
+    <img data-ks-lazyload="assets/product_02.png" src="assets/logo_tiny.png" alt="详情图2">
+    <img data-lazyload="assets/product_03.png" src="assets/logo_tiny.png" alt="详情图3">
+    <img data-src="assets/product_04.png" src="assets/logo_tiny.png" alt="详情图4">
+    <img data-original="assets/product_05.png" src="assets/logo_tiny.png" alt="详情图5">
+    <img src="assets/product_06.png" alt="详情图6">
+    <img src="assets/product_07.png" alt="详情图7">
+  </div>
+
+  <footer class="tb-foot">
+    本页面为「图提取 ImageGrab」插件的离线演示页，仅用于功能测试，图片均为本地生成的示例图。
+  </footer>
+
+  <script>
+    // 模拟真实电商页的懒加载：滚动到视口附近才把 data-src 换成 src
+    const lazyObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const real = el.dataset.src || el.dataset.ksLazyload || el.dataset.lazyload
+          || el.dataset.lazySrc || el.dataset.original;
+        if (real) {
+          el.src = real;
+          el.removeAttribute('data-src');
+        }
+        lazyObserver.unobserve(el);
+      });
+    }, { rootMargin: '200px' });
+
+    document.querySelectorAll('img[data-src],img[data-ks-lazyload],img[data-lazyload],img[data-lazy-src],img[data-original]')
+      .forEach((el) => lazyObserver.observe(el));
+
+    // 缩略图点击切换主图
+    document.querySelectorAll('.gallery__thumbs img').forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        const real = thumb.dataset.src || thumb.dataset.lazyload || thumb.dataset.lazySrc || thumb.dataset.original;
+        if (real) document.getElementById('mainImg').src = real;
+      });
+    });
+  </script>
+</body>
+</html>

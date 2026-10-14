@@ -1,0 +1,126 @@
+/* ==========================================================================
+   图提取 ImageGrab —— content.css
+   内容脚本注入的样式：右下角悬浮按钮 + 轻量 toast
+   所有类名统一 imagegrab- 前缀，避免和电商页面自身样式冲突
+   ========================================================================== */
+
+:root {
+  --imagegrab-primary: #4f6bff;
+  --imagegrab-primary-dark: #3a52e0;
+  --imagegrab-radius: 999px;
+  --imagegrab-offset: 0px;
+}
+
+/* ---------- 悬浮按钮 ---------- */
+#imagegrab-fab {
+  position: fixed !important;
+  right: 20px !important;
+  bottom: calc(24px + var(--imagegrab-offset)) !important;
+  z-index: 2147483000 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  height: 46px !important;
+  padding: 0 18px 0 14px !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: var(--imagegrab-radius) !important;
+  background: linear-gradient(135deg, #5b7bff 0%, #7a4dff 100%) !important;
+  color: #fff !important;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.3px !important;
+  cursor: pointer !important;
+  box-shadow: 0 8px 24px rgba(79, 107, 255, 0.42), 0 2px 6px rgba(0, 0, 0, 0.12) !important;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease !important;
+  user-select: none !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+#imagegrab-fab:hover {
+  transform: translateY(-3px) scale(1.02) !important;
+  box-shadow: 0 14px 30px rgba(79, 107, 255, 0.5), 0 3px 10px rgba(0, 0, 0, 0.16) !important;
+}
+
+#imagegrab-fab:active {
+  transform: translateY(-1px) scale(0.99) !important;
+}
+
+#imagegrab-fab:focus-visible {
+  outline: 3px solid rgba(79, 107, 255, 0.45) !important;
+  outline-offset: 3px !important;
+}
+
+#imagegrab-fab.is-busy {
+  opacity: 0.85 !important;
+  cursor: progress !important;
+}
+
+#imagegrab-fab .imagegrab-fab__icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#imagegrab-fab.is-busy .imagegrab-fab__icon {
+  animation: imagegrab-spin 1s linear infinite;
+}
+
+@keyframes imagegrab-spin {
+  to { transform: rotate(360deg); }
+}
+
+#imagegrab-fab .imagegrab-fab__badge {
+  position: absolute !important;
+  top: -6px !important;
+  right: -6px !important;
+  min-width: 20px !important;
+  height: 20px !important;
+  padding: 0 5px !important;
+  border-radius: 999px !important;
+  background: #ff3b5c !important;
+  color: #fff !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  line-height: 20px !important;
+  text-align: center !important;
+  box-shadow: 0 2px 6px rgba(255, 59, 92, 0.5) !important;
+}
+
+/* ---------- 提示 toast ---------- */
+.imagegrab-toast {
+  position: fixed !important;
+  left: 50% !important;
+  bottom: 96px !important;
+  transform: translate(-50%, 12px) !important;
+  z-index: 2147483001 !important;
+  max-width: min(80vw, 460px) !important;
+  padding: 12px 18px !important;
+  border-radius: 12px !important;
+  background: rgba(28, 32, 46, 0.94) !important;
+  color: #fff !important;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif !important;
+  font-size: 13.5px !important;
+  line-height: 1.5 !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.25s ease, transform 0.25s ease !important;
+}
+
+.imagegrab-toast.is-show {
+  opacity: 1 !important;
+  transform: translate(-50%, 0) !important;
+}
+
+.imagegrab-toast--ok { border-left: 4px solid #35d07f !important; }
+.imagegrab-toast--warn { border-left: 4px solid #ffb020 !important; }
+
+/* ---------- 深色模式适配 ---------- */
+@media (prefers-color-scheme: dark) {
+  .imagegrab-toast {
+    background: rgba(48, 52, 68, 0.96) !important;
+  }
+}
