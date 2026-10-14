@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>ImageGrab 画廊预览（离线夹具）</title>
+<link rel="stylesheet" href="../gallery.css">
+<style>
+  /* 仅用于离线预览：固定页面高度，方便整页截图 */
+  html, body { min-height: 100vh; }
+</style>
+</head>
+<body>
+  <!-- 结构与 gallery.html 完全一致，只是为了在没有 chrome.* API 的环境下预览 -->
+  <header class="toolbar">
+    <div class="toolbar__left">
+      <div class="brand">
+        <span class="brand__logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <path d="M21 15l-5-5L5 21"></path>
+          </svg>
+        </span>
+        <div class="brand__text">
+          <strong>图提取 ImageGrab</strong>
+          <span id="metaInfo" class="brand__sub">正在载入…</span>
+        </div>
+      </div>
+    </div>
+    <div class="toolbar__actions">
+      <label class="check-inline"><input type="checkbox" id="checkAll"><span>全选</span></label>
+      <button class="btn btn--ghost" id="btnInvert" type="button">反选</button>
+      <button class="btn btn--ghost" id="btnReload" type="button">重新提取</button>
+      <span class="counter" id="counter">已选 0 / 0</span>
+      <button class="btn btn--primary" id="btnDownload" type="button">下载选中 (PNG)</button>
+    </div>
+  </header>
+  <div class="progress" id="progress" hidden>
+    <div class="progress__bar"><span id="progressFill"></span></div>
+    <span class="progress__text" id="progressText">准备下载…</span>
+  </div>
+  <main class="grid" id="grid" aria-live="polite"></main>
+  <section class="empty" id="empty" hidden></section>
+  <div class="result" id="result" hidden></div>
+
+  <script>
+    // ---- 离线夹具：模拟扩展环境（真实插件里由 background.js 提供这些接口）----
+    window.__FIXTURE__ = true;
+    const DEMO = '../demo/assets/product_';
+    const IMAGES = Array.from({ length: 8 }, (_, i) => ({
+      id: 'img_' + (i + 1),
+      url: DEMO + String(i + 1).padStart(2, '0') + '.png',
+      width: 800,
+      height: 800,
+      source: i % 3 === 0 ? 'img.currentSrc' : (i % 3 === 1 ? 'img[data-src]' : 'css')
+    }));
+
+    window.chrome = {
+      runtime: {
+        sendMessage: async (msg) => {
+          if (msg.type === 'GET_PAYLOAD') {
+            return {
+              ok: true,
+              payload: {
+                site: '淘宝',
+                pageUrl: 'https://item.taobao.com/item.htm?id=888888888',
+                pageTitle: '秋冬加厚保暖连帽羽绒服 男女同款',
+                extractedAt: Date.now(),
+                tabId: 1,
+                images: IMAGES
+              }
+            };
+          }
+          if (msg.type === 'GET_HISTORY') {
+            return { ok: true, history: [
+              { site: '淘宝', count: 8, extractedAt: Date.now() - 3600e3, pageUrl: '#', pageTitle: '羽绒服' },
+              { site: '京东', count: 14, extractedAt: Date.now() - 86400e3, pageUrl: '#', pageTitle: '蓝牙耳机' }
+            ] };
+          }
+          if (msg.type === 'DOWNLOAD_MANY') {
+            // 模拟下载进度推送
+            for (let i = 1; i <= msg.images.length; i++) {
+              await new Promise((r) => setTimeout(r, 260));
+              window.dispatchEvent(new CustomEvent('fixture-progress', { detail: { done: i, total: msg.images.length } }));
+            }
+            return { ok: true, results: msg.images.map((im, i) => ({ ok: true, filename: '商品图_' + String(i + 1).padStart(3, '0') + '.png' })) };
+          }
+          if (msg.type === 'DOWNLOAD_ONE') {
+            return { ok: true, result: { filename: '商品图_001.png' } };
+          }
+          return { ok: true };
+        },
+        onMessage: { addListener: () => {} }
+      },
+      tabs: { update: async () => {}, sendMessage: async () => {} }
+    };
+  </script>
+  <script src="../gallery.js"></script>
+  <script>
+    // 夹具专用：把自定义事件转成 gallery.js 期望的 runtime 消息
+    window.addEventListener('fixture-progress', (e) => {
+      const { done, total } = e.detail;
+      const pct = Math.round((done / total) * 100);
+      document.getElementById('progress').hidden = false;
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressText').textContent = `正在下载 ${done} / ${total}（${pct}%）`;
+    });
+  </script>
+</body>
+</html>

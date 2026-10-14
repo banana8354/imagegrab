@@ -140,6 +140,8 @@ body {
   padding: 10px 22px;
   background: var(--primary-soft);
 }
+/* 关键：hidden 属性必须能覆盖上面的 display:flex，否则进度条会一直显示 */
+.progress[hidden] { display: none !important; }
 .progress__bar {
   flex: 1;
   height: 7px;

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>演示商品详情页 + ImageGrab 悬浮按钮（离线夹具）</title>
+<!-- 复用真实演示页 -->
+<style>
+  /* 把真实演示页内容通过 iframe 铺满，再叠加插件按钮与 toast */
+  html, body { margin: 0; height: 100%; }
+  #stage { width: 100%; height: 100%; border: 0; display: block; }
+</style>
+<link rel="stylesheet" href="../content.css">
+<style>
+  /* 截图夹具：让 toast 靠近按钮，画面更紧凑 */
+  .imagegrab-toast { bottom: 88px !important; }
+</style>
+</head>
+<body>
+  <iframe id="stage" src="../demo/index.html"></iframe>
+
+  <!-- 与 content.js 注入的按钮结构完全一致 -->
+  <button id="imagegrab-fab" type="button" aria-label="获取图片" class="is-busy">
+    <span class="imagegrab-fab__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+        <path d="M21 15l-5-5L5 21"></path>
+      </svg>
+    </span>
+    <span class="imagegrab-fab__text">提取中</span>
+    <span class="imagegrab-fab__badge">8</span>
+  </button>
+
+  <div id="imagegrab-toast" class="imagegrab-toast imagegrab-toast--ok is-show">
+    已提取 8 张图片，正在打开预览页
+  </div>
+</body>
+</html>

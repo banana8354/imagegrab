@@ -5,6 +5,16 @@
 支持 **淘宝 / 天猫 / 京东 / 拼多多商家版** 商品详情页：点击页面右下角的「获取图片」，
 在新标签页集中预览、自由勾选，一键全部保存为 PNG。
 
+![商品详情页悬浮按钮](docs/images/plugin-button.png)
+
+![图片画廊页](docs/images/gallery.png)
+
+![批量下载完成反馈](docs/images/download-done.png)
+
+**官网首页**（`docs/`，可发布到 GitHub Pages）：
+
+![官网首页](docs/images/website.png)
+
 ---
 
 ## 功能特性
@@ -78,6 +88,17 @@ node tools/static-server.js 8777
 ```
 
 也可以直接双击 `docs/index.html` 用浏览器打开。
+
+## 发布官网到 GitHub Pages
+
+仓库已内置工作流 `.github/workflows/pages.yml`，推送后只需：
+
+1. 打开仓库 **Settings → Pages**；
+2. **Build and deployment → Source** 选择 **GitHub Actions**；
+3. 等 `Deploy docs to GitHub Pages` 跑完，访问
+   `https://<你的用户名>.github.io/imagegrab/`。
+
+也可以把 Source 改成 `Deploy from a branch`，分支选 `main`、目录选 `/docs`。
 
 ## 隐私说明
 

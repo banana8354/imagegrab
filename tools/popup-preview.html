@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>图提取 ImageGrab</title>
+  <base href="../">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="pop-head">
+    <span class="pop-logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="4"></rect>
+        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+        <path d="M21 15l-5-5L5 21"></path>
+      </svg>
+    </span>
+    <div>
+      <strong>图提取 ImageGrab</strong>
+      <span id="siteInfo">正在识别当前页面…</span>
+    </div>
+  </header>
+
+  <section class="pop-actions">
+    <button id="btnExtract" class="pop-btn pop-btn--primary" type="button">在当前页面提取图片</button>
+    <button id="btnGallery" class="pop-btn" type="button">打开图片画廊</button>
+  </section>
+
+  <section class="pop-section">
+    <h3>最近提取</h3>
+    <ul id="history" class="pop-history"><li class="pop-empty">暂无记录</li></ul>
+  </section>
+
+  <footer class="pop-foot">
+    支持淘宝 / 天猫 / 京东 / 拼多多商家版 · v1.0.0
+  </footer>
+
+  
+  <script>
+    // ---- 离线夹具：模拟扩展环境（真实插件里由 chrome.tabs / background.js 提供）----
+    window.chrome = {
+      tabs: {
+        query: async () => [{
+          id: 1, active: true,
+          url: 'https://item.taobao.com/item.htm?id=888888888',
+          title: '秋冬加厚保暖连帽羽绒服 男女同款'
+        }],
+        sendMessage: async () => ({ ok: true })
+      },
+      runtime: {
+        sendMessage: async (msg) => {
+          if (msg.type === 'GET_HISTORY') {
+            const now = Date.now();
+            return { ok: true, history: [
+              { site: '淘宝', count: 8, extractedAt: now - 6 * 60e3 },
+              { site: '京东', count: 14, extractedAt: now - 3 * 3600e3 },
+              { site: '拼多多商家版', count: 21, extractedAt: now - 26 * 3600e3 }
+            ] };
+          }
+          return { ok: true };
+        }
+      }
+    };
+  </script>
+  <script src="popup.js"></script>
+</body>
+</html>
