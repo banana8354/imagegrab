@@ -25,11 +25,17 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
           });
           await rememberHistory(msg.payload);
           const url = chrome.runtime.getURL('gallery.html');
-          // 复用已打开的画廊页，避免开一堆标签
-          const existing = await chrome.tabs.query({ url });
-          if (existing.length) {
-            await chrome.tabs.update(existing[0].id, { active: true, url });
-          } else {
+          // 复用已打开的画廊页，避免开一堆标签；
+          // 万一 tabs 查询受限也要保证画廊能打开，因此单独包一层 try
+          try {
+            const existing = await chrome.tabs.query({ url });
+            if (existing.length) {
+              await chrome.tabs.update(existing[0].id, { active: true, url });
+            } else {
+              await chrome.tabs.create({ url });
+            }
+          } catch (err) {
+            console.warn('[ImageGrab] 复用画廊标签页失败，改为新开标签', err);
             await chrome.tabs.create({ url });
           }
           sendResponse({ ok: true });

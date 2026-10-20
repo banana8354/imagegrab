@@ -112,6 +112,7 @@ node tools/static-server.js 8777
 | `activeTab` / `scripting` | 在用户主动操作时与当前标签页通信 |
 | `downloads` | 保存转换后的 PNG 文件 |
 | `storage` | 暂存本次提取结果与最近几条记录 |
+| `tabs` | 打开/复用图片画廊标签页 |
 | `host_permissions` | 仅在支持平台的商品页注入按钮、读取图片数据 |
 
 ## License
